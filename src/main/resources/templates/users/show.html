@@ -3,11 +3,24 @@
     xmlns:th="http://www.thymeleaf.org"
     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-    <head th:insert="fragments/header :: header (title=${user.firstName})"></head>
+    <head th:insert="fragments/header :: header (title=${user.firstName + ' ' + user.lastName})"></head>
 <body>
     <div th:insert="fragments/header :: navBar"></div>
     <div class="container">
-        <h1 th:text="${user.firstName + ' ' + user.lastName}">FirstName LastName</h1>
+        <div class="row">
+            <h2>
+                <span th:text="${user.firstName + ' ' + user.lastName}">
+                    FirstName LastName
+                </span>
+                <small class="text-muted">
+                    (
+                        <span th:text="${user.userName}">
+                            username
+                        </span>
+                    )
+                </small>
+            </h2>
+        </div>
         <p>birth day: <span th:text="${user.birthDate}">DATE</span></p>
         <a name="" id="" class="btn btn-primary" th:href="@{/user/edit/{id}(id = ${user.userId})}" role="button">EDIT</a>
         <a name="" id="" class="btn btn-primary" th:href="@{/user/delete/{id}(id = ${user.userId})}" role="button">DELETE</a>

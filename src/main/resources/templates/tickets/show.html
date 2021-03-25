@@ -15,7 +15,7 @@
                     <div class="row">
                         <p>Assigned User: 
                             <a th:href="@{/user/{id}(id = ${ticket.assignedUser.userId})}">
-                                <span th:text="${ticket.assignedUser.firstName} + ' ' + ${ticket.assignedUser.lastName}">
+                                <span th:text="${ticket.assignedUser.userName}">
                                     Assigned User
                                 </span>
                             </a>
@@ -24,7 +24,7 @@
                     <div class="row">
                         <p>Created By: 
                             <a th:href="@{/user/{id}(id = ${ticket.createdByUser.userId})}">    
-                                <span th:text="${ticket.createdByUser.firstName} + ' ' + ${ticket.createdByUser.lastName}">
+                                <span th:text="${ticket.createdByUser.userName}">
                                     Creator
                                 </span>
                             </a>
