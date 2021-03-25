@@ -13,10 +13,22 @@
                 </div>
                 <div class="col-6">
                     <div class="row">
-                        <p>Assigned User: <span th:text="${ticket.assignedUser.firstName} + ' ' + ${ticket.assignedUser.lastName}">Assigned User</span></p>
+                        <p>Assigned User: 
+                            <a th:href="@{/user/{id}(id = ${ticket.assignedUser.userId})}">
+                                <span th:text="${ticket.assignedUser.firstName} + ' ' + ${ticket.assignedUser.lastName}">
+                                    Assigned User
+                                </span>
+                            </a>
+                        </p>
                     </div>
                     <div class="row">
-                        <p>Created By: <span th:text="${ticket.createdByUser.firstName} + ' ' + ${ticket.createdByUser.lastName}">Creator</span></p>
+                        <p>Created By: 
+                            <a th:href="@{/user/{id}(id = ${ticket.createdByUser.userId})}">    
+                                <span th:text="${ticket.createdByUser.firstName} + ' ' + ${ticket.createdByUser.lastName}">
+                                    Creator
+                                </span>
+                            </a>
+                        </p>
                     </div>
                 </div>
             </div>
