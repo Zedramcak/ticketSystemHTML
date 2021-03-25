@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head th:insert="fragments/header :: header (title=${user.firstName})"></head>
+<body>
+    <div th:insert="fragments/header :: navBar"></div>
+    <div class="container">
+        <h1 th:text="${user.firstName + ' ' + user.lastName}">FirstName LastName</h1>
+        <p>birth day: <span th:text="${user.birthDate}">DATE</span></p>
+        <a name="" id="" class="btn btn-primary" th:href="@{/user/edit/{id}(id = ${user.userId})}" role="button">EDIT</a>
+        <a name="" id="" class="btn btn-primary" th:href="@{/user/delete/{id}(id = ${user.userId})}" role="button">DELETE</a>
+        <h2>Assigned tickets</h2>
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Created on</th>
+                    <th>Due on</th>
+                    <th>Subject</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${tickets.empty}">
+                    <td colspan="5">NO TICKETS ASSIGNED</td>
+                </tr>
+                <tr th:each="ticket : ${tickets}">
+                    <td><span th:text="${ticket.id}">ID</span></td>
+                    <td><span th:text="${ticket.dateCreated}">CREATED</span></td>
+                    <td><span th:text="${ticket.dueDate}">DUE</span></td>
+                    <td><span th:text="${ticket.name}">Subject</span></td>
+                    <td><span th:text="${ticket.status}">Status</span></td>
+                </tr>
+            </tbody>
+        </table>
+        <div th:insert="fragments/footer :: footer"></div>
+    </div>
+</body>
+</html>

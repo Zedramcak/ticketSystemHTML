@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:insert="fragments/header :: header (title='Edit User ' + ${user.firstName})"></head>
+<body>
+    <div th:insert="fragments/header :: navBar"></div>
+    <div class="container">
+        <h1>EDIT USER <span th:text="${user.firstName}"></span></h1>
+        <form action="#" th:action="@{/user/edit/{id}(id = ${user.userId})}" th:object="${user}" method="POST">
+            <label for="firstName" class="form-label">First Name:</label>
+            <input type="text" th:field="*{firstName}" th:value="${user.firstName}" class="form-control"><br><br>
+            <label for="lastName" class="form-label">Last Name:</label>
+            <input type="text" th:field="*{lastName}" th:value="${user.lastName}" class="form-control"><br><br>
+            <label for="birthDate" class="form-label">Birthday:</label>
+            <input type="date" th:field="*{birthDate}" th:value="${user.birthDate}" class="form-control"><br><br>
+            <input type="submit" value="Edit User">
+        </form>
+        <div th:insert="fragments/footer :: footer"></div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head th:insert="fragments/header :: header (title=${ticket.id})"></head>
+    <body>
+        <div th:insert="fragments/header :: navBar"></div>
+        <div class="container pt-5">
+            <div class="row">
+                <div class="col-6">
+                    <h1 th:text="${ticket.name}">Ticket Name</h1>
+                </div>
+                <div class="col-6">
+                    <div class="row">
+                        <p>Assigned User: <span th:text="${ticket.assignedUser.firstName} + ' ' + ${ticket.assignedUser.lastName}">Assigned User</span></p>
+                    </div>
+                    <div class="row">
+                        <p>Created By: <span th:text="${ticket.createdByUser.firstName} + ' ' + ${ticket.createdByUser.lastName}">Creator</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col-10 border border-2 border-dark rounded-2">
+                    <p th:text="${ticket.description}" >
+                        DESCRIPTION
+                    </p>
+                </div>
+                <div class="col-2" th:switch="${ticket.status}">
+                    <div class="d-grid" th:case="${T(eu.adamzrc.ticketSystemHTML.models.Status).NEW}">
+                        <button href="#" class="btn btn-primary">NEW</button>
+                    </div>
+                    <div class="d-grid" th:case="${T(eu.adamzrc.ticketSystemHTML.models.Status).IN_PROGRESS}">
+                        <button href="#" class="btn btn-success">IN PROGRESS</button>
+                    </div>
+                    <div class="d-grid" th:case="${T(eu.adamzrc.ticketSystemHTML.models.Status).FINISHED}">
+                        <button href="#" class="btn btn-info">FINISHED</button>
+                    </div>
+                </div>
+            </div>
+            <div th:insert="fragments/footer :: footer"></div>
+        </div>
+    </body>
+</html>

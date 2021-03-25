@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:insert="fragments/header :: header (title='Users')"></head>
+<body>
+    <div th:insert="fragments/header :: navBar"></div>
+    <div class="container">
+        <h2>List of Users</h2>
+        <table class="table table-dark table-striped table-hover">
+            <thead>
+                <tr>
+                    <th style="width: 50%">Name</th>
+                    <th>EDIT</th>
+                    <th>DELETE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${users.empty}">
+                    <td colspan="3">NO USERS IN DATABASE</td>
+                </tr>
+                <tr th:each="user : ${users}">
+                    <td class="text-center align-middle">
+                        <a th:href="@{user/{id}(id = ${user.userId})}">
+                            <span class="text-uppercase text-white text-decoration-none" th:text="${user.firstName + ' ' + user.lastName}">
+                                firstName lastName
+                            </span>
+                        </a>
+                    </td>
+                    <td>
+                        <a th:href="@{/user/edit/{id}(id = ${user.userId})}" class="btn btn-primary">EDIT</a>
+                    </td>
+                    <td>
+                        <a th:href="@{/user/delete/{id}(id = ${user.userId})}" class="btn btn-danger">DELETE</a>
+                        <!-- <span><a th:href="@{/user/delete/{id}(id = ${user.userId})}">DELETE</a></span> -->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/user/add}" role="button">ADD NEW USER</a>
+        <div th:insert="fragments/footer :: footer"></div>
+    </div>
+</body>
+</html>
