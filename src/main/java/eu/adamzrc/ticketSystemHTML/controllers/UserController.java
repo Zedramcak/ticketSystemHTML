@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.text.Normalizer;
+import java.time.LocalDateTime;
 import java.util.Locale;
 
 /**
@@ -49,11 +51,8 @@ public class UserController {
 
     @PostMapping(path = "/add")
     public String addNewUser(User user){
-        user.setUserName(
-                user.getFirstName().replace("[^a-zA-Z","").toLowerCase().charAt(0) +
-                user.getLastName().replace("[^a-zA-Z","").toLowerCase().substring(0,3) +
-                user.getBirthDate().toString().substring(2,4)
-        );
+        //TODO FIX THE USERNAME CREATOR
+        user.setUserName(generateUsername(user));
         userService.saveUser(user);
         return DIRECTORY+"saved";
     }
@@ -84,4 +83,10 @@ public class UserController {
     }
 
     // == private methods ==
+    private String generateUsername(User user){
+        String firstName = Normalizer.normalize(user.getFirstName(), Normalizer.Form.NFD).replaceAll("[\\p{InCombiningDiacriticalMarks}]","").replaceAll("[^a-zA-Z]","").toLowerCase().substring(0,2);
+        String lastName = Normalizer.normalize(user.getLastName(), Normalizer.Form.NFD).replaceAll("[\\p{InCombiningDiacriticalMarks}]","").replaceAll("[^a-zA-Z]","").toLowerCase().substring(0,3);
+
+        return firstName + lastName + LocalDateTime.now().getSecond();
+    }
 }
