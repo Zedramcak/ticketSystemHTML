@@ -51,7 +51,6 @@ public class UserController {
 
     @PostMapping(path = "/add")
     public String addNewUser(User user){
-        //TODO FIX THE USERNAME CREATOR
         user.setUserName(generateUsername(user));
         userService.saveUser(user);
         return DIRECTORY+"saved";
