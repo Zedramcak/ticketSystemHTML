@@ -1,6 +1,7 @@
 package eu.adamzrc.ticketSystemHTML.controllers;
 
 import eu.adamzrc.ticketSystemHTML.models.User;
+import eu.adamzrc.ticketSystemHTML.service.ITicketService;
 import eu.adamzrc.ticketSystemHTML.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,8 @@ public class UserController {
     // == fields ==
     @Autowired
     private IUserService userService;
+    @Autowired
+    private ITicketService ticketService;
 
     // == constructors ==
 
@@ -40,6 +43,7 @@ public class UserController {
         User user = userService.findUser(id);
         model.addAttribute(user);
         model.addAttribute("tickets", user.getTickets());
+        model.addAttribute("createdTickets", ticketService.findTicketCreatedByUser(user));
         return DIRECTORY+"show";
     }
 

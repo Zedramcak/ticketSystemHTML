@@ -48,6 +48,30 @@
                 </tr>
             </tbody>
         </table>
+        <h2>Created tickets</h2>
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Created on</th>
+                    <th>Due on</th>
+                    <th>Subject</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${createdTickets.empty}">
+                    <td colspan="5">NO CREATED TICKETS</td>
+                </tr>
+                <tr th:each="ticket : ${createdTickets}">
+                    <td><span th:text="${ticket.id}">ID</span></td>
+                    <td><span th:text="${ticket.dateCreated}">CREATED</span></td>
+                    <td><span th:text="${ticket.dueDate}">DUE</span></td>
+                    <td><span th:text="${ticket.name}">Subject</span></td>
+                    <td><span th:text="${ticket.status}">Status</span></td>
+                </tr>
+            </tbody>
+        </table>
         <div th:insert="fragments/footer :: footer"></div>
     </div>
 </body>

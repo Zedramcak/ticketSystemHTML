@@ -24,6 +24,11 @@ public class TicketService implements ITicketService{
 
 
     @Override
+    public List<Ticket> findTicketCreatedByUser(User user) {
+        return repository.findAllByCreatedByUser(user);
+    }
+
+    @Override
     public Ticket findTicket(Long id) {
         return repository.findById(id).get();
     }
