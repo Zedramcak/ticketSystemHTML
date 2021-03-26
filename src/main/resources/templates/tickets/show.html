@@ -38,15 +38,39 @@
                         DESCRIPTION
                     </p>
                 </div>
-                <div class="col-2" th:switch="${ticket.status}">
-                    <div class="d-grid" th:case="${T(eu.adamzrc.ticketSystemHTML.models.Status).NEW}">
-                        <button href="#" class="btn btn-primary">NEW</button>
+                <div class="col-2">
+                    <div th:switch="${ticket.status}">
+                        <div class="d-grid" th:case="${T(eu.adamzrc.ticketSystemHTML.models.Status).NEW}">
+                            <button href="#" class="btn btn-primary">NEW</button>
+                        </div>
+                        <div class="d-grid" th:case="${T(eu.adamzrc.ticketSystemHTML.models.Status).IN_PROGRESS}">
+                            <button href="#" class="btn btn-success">IN PROGRESS</button>
+                        </div>
+                        <div class="d-grid" th:case="${T(eu.adamzrc.ticketSystemHTML.models.Status).FINISHED}">
+                            <button href="#" class="btn btn-info">FINISHED</button>
+                        </div>
                     </div>
-                    <div class="d-grid" th:case="${T(eu.adamzrc.ticketSystemHTML.models.Status).IN_PROGRESS}">
-                        <button href="#" class="btn btn-success">IN PROGRESS</button>
-                    </div>
-                    <div class="d-grid" th:case="${T(eu.adamzrc.ticketSystemHTML.models.Status).FINISHED}">
-                        <button href="#" class="btn btn-info">FINISHED</button>
+                    <div class="d-grid">
+                        <button class="btn btn-danger" data-bs-toggle='modal' data-bs-target='#exampleModal'>DELETE</button>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">TICKET WILL BE DELETED</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Are you sure you want to delete this ticket?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
+                                        <form id="deleteTicket" th:action="@{/tickets/{id}/delete(id = ${ticket.id})}" th:object="${ticket}" method="POST">
+                                            <input type="submit" value="DELETE" class="btn btn-danger">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

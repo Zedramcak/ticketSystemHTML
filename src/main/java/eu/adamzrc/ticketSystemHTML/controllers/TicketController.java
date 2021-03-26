@@ -1,6 +1,7 @@
 package eu.adamzrc.ticketSystemHTML.controllers;
 
 import eu.adamzrc.ticketSystemHTML.models.Ticket;
+import eu.adamzrc.ticketSystemHTML.models.User;
 import eu.adamzrc.ticketSystemHTML.service.ITicketService;
 import eu.adamzrc.ticketSystemHTML.service.IUserService;
 import eu.adamzrc.ticketSystemHTML.models.Status;
@@ -52,10 +53,16 @@ public class TicketController {
     }
 
     @GetMapping(path = "/{id}")
-    public String showUser(@PathVariable Long id, Model model){
+    public String showTicket(@PathVariable Long id, Model model){
         Ticket ticket = ticketService.findTicket(id);
         model.addAttribute(ticket);
         return DIRECTORY+"show";
+    }
+
+    @PostMapping(path = "/{id}/delete")
+    public String deleteTicket(@PathVariable Long id){
+        ticketService.deleteTicket(ticketService.findTicket(id));
+        return DIRECTORY+"deleted";
     }
 
 }
