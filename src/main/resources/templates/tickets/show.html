@@ -14,7 +14,7 @@
                 <div class="col-6">
                     <div class="row">
                         <p>Assigned User: 
-                            <a th:href="@{/user/{id}(id = ${ticket.assignedUser.userId})}">
+                            <a th:href="@{/user/{username}(username = ${ticket.assignedUser.username})}">
                                 <span th:text="${ticket.assignedUser.username}">
                                     Assigned User
                                 </span>
@@ -23,7 +23,7 @@
                     </div>
                     <div class="row">
                         <p>Created By: 
-                            <a th:href="@{/user/{id}(id = ${ticket.createdByUser.userId})}">    
+                            <a th:href="@{/user/{username}(username = ${ticket.createdByUser.username})}">    
                                 <span th:text="${ticket.createdByUser.username}">
                                     Creator
                                 </span>

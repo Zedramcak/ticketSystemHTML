@@ -34,7 +34,7 @@
                     <td><span th:text="${ticket.dueDate}">due date</span></td>
                     <td><span th:text="${ticket.status}">status</span></td>
                     <td>
-                        <a th:href="@{/user/{id}(id = ${ticket.AssignedUser.userId})}">
+                        <a th:href="@{/user/{username}(username = ${ticket.AssignedUser.username})}">
                             <span th:text="${ticket.AssignedUser.firstName}">Assigned User</span>
                         </a>
                     </td>

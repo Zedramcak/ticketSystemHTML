@@ -24,7 +24,7 @@
                 </tr>
                 <tr th:each="user : ${users}">
                     <td class="align-middle">
-                        <a th:href="@{user/{id}(id = ${user.userId})}">
+                        <a th:href="@{user/{username}(username = ${user.username})}">
                             <span class="text-white text-decoration-none" th:text="${user.username}">username</span>
                         </a>
                     </td>

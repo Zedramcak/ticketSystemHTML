@@ -35,10 +35,10 @@ public class UserController {
         return modelAndView;
     }
 
-    @GetMapping(path = "/{id}")
-    public ModelAndView showUser(@PathVariable Long id){
+    @GetMapping(path = "/{username}")
+    public ModelAndView showUser(@PathVariable String username){
         ModelAndView model = new ModelAndView(DIRECTORY+"show");
-        User user = userService.findUser(id);
+        User user = userService.findByUsername(username);
         model.addObject(user);
         model.addObject("tickets", user.getTickets());
         model.addObject("createdTickets", ticketService.findTicketCreatedByUser(user));

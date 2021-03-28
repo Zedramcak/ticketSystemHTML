@@ -13,15 +13,17 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
             <h1 class="display-5 fw-bold text-white">TICKET SYSTEM</h1>
             <div class="col-lg-6 mx-auto">
                 <p class="lead mb-4 text-white">Welcome to my Ticket System DEMO app</p>
-                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                    <a th:href="@{/user}" class="btn btn-primary">show all users</a>
-                    <a th:href="@{/user/add}" class="btn btn-outline-primary">add new user</a><br><br>
-                </div>
-                <br>
-                <br>
-                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                    <a th:href="@{/tickets}" class="btn btn-primary">show all tickets</a>
-                    <a th:href="@{/tickets/add}" class="btn btn-outline-primary">create new ticket</a>
+                <div sec:authorize="isAuthenticated()">
+                    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                        <a th:href="@{/user}" class="btn btn-primary">show all users</a>
+                        <a th:href="@{/user/add}" class="btn btn-outline-primary">add new user</a><br><br>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                        <a th:href="@{/tickets}" class="btn btn-primary">show all tickets</a>
+                        <a th:href="@{/tickets/add}" class="btn btn-outline-primary">create new ticket</a>
+                    </div>
                 </div>
             </div>
         </div>
