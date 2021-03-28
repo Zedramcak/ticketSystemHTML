@@ -14,7 +14,7 @@
                 </span>
                 <small class="text-muted">
                     (
-                        <span th:text="${user.userName}">
+                        <span th:text="${user.username}">
                             username
                         </span>
                     )
@@ -40,7 +40,7 @@
                     <td colspan="5">NO TICKETS ASSIGNED</td>
                 </tr>
                 <tr th:each="ticket : ${tickets}">
-                    <td><span th:text="${ticket.id}">ID</span></td>
+                    <td><a th:href="@{/tickets/{id}(id = ${ticket.id})}"><span th:text="${ticket.id}">ID</span></a></td>
                     <td><span th:text="${ticket.dateCreated}">CREATED</span></td>
                     <td><span th:text="${ticket.dueDate}">DUE</span></td>
                     <td><span th:text="${ticket.name}">Subject</span></td>
@@ -64,7 +64,7 @@
                     <td colspan="5">NO CREATED TICKETS</td>
                 </tr>
                 <tr th:each="ticket : ${createdTickets}">
-                    <td><span th:text="${ticket.id}">ID</span></td>
+                    <td><a th:href="@{/tickets/{id}(id = ${ticket.id})}"><span th:text="${ticket.id}">ID</span></a></td>
                     <td><span th:text="${ticket.dateCreated}">CREATED</span></td>
                     <td><span th:text="${ticket.dueDate}">DUE</span></td>
                     <td><span th:text="${ticket.name}">Subject</span></td>

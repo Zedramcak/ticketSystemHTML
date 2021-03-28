@@ -4,8 +4,13 @@ import eu.adamzrc.ticketSystemHTML.models.User;
 import eu.adamzrc.ticketSystemHTML.repositories.TicketRepository;
 import eu.adamzrc.ticketSystemHTML.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.text.Normalizer;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -18,9 +23,22 @@ public class UserService implements IUserService{
     private UserRepository repository;
     @Autowired
     private TicketRepository ticketRepository;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
     // == constructors ==
 
     // == public methods ==
+
+
+    @Override
+    public User findByUsername(String username) {
+        return repository.findUserByUsername(username);
+    }
+
+    @Override
+    public Page<User> getUsersPageable(Pageable page) {
+        return repository.findAll(page);
+    }
 
     @Override
     public void deleteUser(User user) {
@@ -28,8 +46,15 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public void saveUser(User user) {
-        repository.save(user);
+    public void deleteUserById(Long id) {
+        repository.deleteById(id);
+    }
+
+    @Override
+    public User saveUser(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setUsername(generateUsername(user));
+        return repository.save(user);
     }
 
     @Override
@@ -41,9 +66,10 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public void updateUser(Long id, User user){
-        user.setUserId(id);
-        repository.save(user);
+    public void updateUser(Long id, User updatedUser){
+        updatedUser.setUserId(id);
+        updatedUser.setUsername(repository.findById(id).get().getUsername());
+        repository.save(updatedUser);
     }
 
     @Override
@@ -52,4 +78,10 @@ public class UserService implements IUserService{
     }
 
     // == private methods ==
+    private String generateUsername(User user){
+        String firstName = Normalizer.normalize(user.getFirstName(), Normalizer.Form.NFD).replaceAll("[\\p{InCombiningDiacriticalMarks}]","").replaceAll("[^a-zA-Z]","").toLowerCase().substring(0,2);
+        String lastName = Normalizer.normalize(user.getLastName(), Normalizer.Form.NFD).replaceAll("[\\p{InCombiningDiacriticalMarks}]","").replaceAll("[^a-zA-Z]","").toLowerCase().substring(0,3);
+
+        return firstName + lastName + LocalDateTime.now().getSecond();
+    }
 }

@@ -15,7 +15,7 @@
                     <div class="row">
                         <p>Assigned User: 
                             <a th:href="@{/user/{id}(id = ${ticket.assignedUser.userId})}">
-                                <span th:text="${ticket.assignedUser.userName}">
+                                <span th:text="${ticket.assignedUser.username}">
                                     Assigned User
                                 </span>
                             </a>
@@ -24,7 +24,7 @@
                     <div class="row">
                         <p>Created By: 
                             <a th:href="@{/user/{id}(id = ${ticket.createdByUser.userId})}">    
-                                <span th:text="${ticket.createdByUser.userName}">
+                                <span th:text="${ticket.createdByUser.username}">
                                     Creator
                                 </span>
                             </a>
@@ -41,13 +41,17 @@
                 <div class="col-2">
                     <div th:switch="${ticket.status}">
                         <div class="d-grid" th:case="${T(eu.adamzrc.ticketSystemHTML.models.Status).NEW}">
-                            <button href="#" class="btn btn-primary">NEW</button>
+                            <form th:action="@{/tickets/{id}/editStatus(id = ${ticket.id})}" method="post">
+                                <input type="submit" class="btn btn-primary d-grid" value="NEW"></input>
+                            </form>
                         </div>
                         <div class="d-grid" th:case="${T(eu.adamzrc.ticketSystemHTML.models.Status).IN_PROGRESS}">
-                            <button href="#" class="btn btn-success">IN PROGRESS</button>
+                            <form th:action="@{/tickets/{id}/editStatus(id = ${ticket.id})}" method="post">
+                                <input type="submit" class="btn btn-success d-grid" value="IN PROGRESS"></input>
+                            </form>
                         </div>
                         <div class="d-grid" th:case="${T(eu.adamzrc.ticketSystemHTML.models.Status).FINISHED}">
-                            <button href="#" class="btn btn-info">FINISHED</button>
+                            <button href="#" class="btn btn-info d-grid">FINISHED</button>
                         </div>
                     </div>
                     <div class="d-grid">
@@ -64,7 +68,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
-                                        <form id="deleteTicket" th:action="@{/tickets/{id}/delete(id = ${ticket.id})}" th:object="${ticket}" method="POST">
+                                        <form id="deleteTicket" th:action="@{/tickets/{id}/delete(id = ${ticket.id})}" method="POST">
                                             <input type="submit" value="DELETE" class="btn btn-danger">
                                         </form>
                                     </div>

@@ -10,27 +10,6 @@
     <div class="container">
         <h1>NEW TICKET WILL BE CREATED HERE</h1>
         <form action="#" th:action="@{/tickets/add}" th:object="${ticket}" method="post" id="newTicketfrm">
-            <!-- <p>name: <input type="text" th:field="*{name}"></p>
-            <p>description: <textarea cols="30" rows="10" th:field="*{description}" form="newTicketfrm"></textarea></p>
-            <p>Due Date: <input type="date" th:field="*{dueDate}"></p>
-            <p>Assign User: 
-                <select th:field="*{assignedUser}">
-                    <option value="">--</option>
-                    <option th:each="user : ${users}"
-                            th:value="${user.userId}"
-                            th:text="${user.firstName + ' ' + user.lastName}"></option>
-                </select>
-            </p>
-            <p>Created by: 
-                <select th:field="*{createdByUser}">
-                    <option value="">--</option>
-                    <option th:each="user : ${users}"
-                            th:value="${user.userId}"
-                            th:text="${user.firstName + ' ' + user.lastName}"></option>
-                </select>
-            </p>
-            <p><input type="submit" value="Submit"></p> -->
-
             <div class="row">
                 <div class="col-6 align-items-center">
                     <input type="text" class="form-control" th:field="*{name}" placeholder="Subject">
@@ -57,7 +36,7 @@
                                 th:text="${user.firstName + ' ' + user.lastName}"></option>
                     </select>
                 </div>
-                <div class="col-4">
+                <!-- <div class="col-4">
                     <label for="createdByUser">
                         Created by
                     </label>
@@ -67,9 +46,9 @@
                                 th:value="${user.userId}"
                                 th:text="${user.firstName + ' ' + user.lastName}"></option>
                     </select>
-                </div>
+                </div> -->
             </div>
-            <input type="button" value="Submit" class="btn btn-primary">
+            <input type="submit" value="Create new" class="btn btn-primary">
         </form>
         <div th:insert="fragments/footer :: footer"></div>
     </div>

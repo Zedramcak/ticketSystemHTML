@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html 
+lang="en"
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:insert="fragments/header :: header (title='Login page')"></head>
+<body>
+    <div th:insert="fragments/header :: navBar (userSigned = ${userSigned})"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-3 align-self-center">
+                <form th:action="@{/login}" method="POST" class="form-signin">
+
+                    <input type="text" name="username" placeholder="Username" class="form-control">
+                    <input type="password" name="password" placeholder="Password" class="form-control">
+                    
+                    <input type="submit" value="LOGIN" class="btn btn-primary">
+                </form>
+            </div>
+            
+        </div>
+    </div>
+    <div th:insert="fragments/footer :: footer"></div>
+</body>
+</html>

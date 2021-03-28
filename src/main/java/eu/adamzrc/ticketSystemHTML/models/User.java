@@ -1,14 +1,19 @@
 package eu.adamzrc.ticketSystemHTML.models;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Adam Zrcek on 23.03.2021
  */
 @Entity
-public class User {
+public class User{
     // == constants ==
 
     // == fields ==
@@ -24,10 +29,18 @@ public class User {
 
     private Date birthDate;
 
-    private String userName;
+    private String username;
+
+    private String password;
+
+    private int active;
 
     @OneToMany(mappedBy = "assignedUser")
     private List<Ticket> tickets;
+
+    @ManyToMany
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
     // == constructors ==
 
@@ -65,12 +78,13 @@ public class User {
         this.birthDate = birthDate;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public List<Ticket> getTickets() {
@@ -79,6 +93,30 @@ public class User {
 
     public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
     }
 
     // == private methods ==

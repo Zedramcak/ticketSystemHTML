@@ -4,16 +4,12 @@ import eu.adamzrc.ticketSystemHTML.models.User;
 import eu.adamzrc.ticketSystemHTML.service.ITicketService;
 import eu.adamzrc.ticketSystemHTML.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.text.Normalizer;
-import java.time.LocalDateTime;
-import java.util.Locale;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by Adam Zrcek on 23.03.2021
@@ -33,63 +29,69 @@ public class UserController {
 
     // == public methods ==
     @GetMapping(path = "")
-    public String showUsers(Model model){
-        model.addAttribute("users", userService.findAll());
-        return DIRECTORY+"showAll";
+    public ModelAndView showUsers(){
+        ModelAndView modelAndView = new ModelAndView(DIRECTORY+"showAll");
+        modelAndView.addObject("users", userService.findAll());
+        return modelAndView;
     }
 
     @GetMapping(path = "/{id}")
-    public String showUser(@PathVariable Long id, Model model){
+    public ModelAndView showUser(@PathVariable Long id){
+        ModelAndView model = new ModelAndView(DIRECTORY+"show");
         User user = userService.findUser(id);
-        model.addAttribute(user);
-        model.addAttribute("tickets", user.getTickets());
-        model.addAttribute("createdTickets", ticketService.findTicketCreatedByUser(user));
-        return DIRECTORY+"show";
+        model.addObject(user);
+        model.addObject("tickets", user.getTickets());
+        model.addObject("createdTickets", ticketService.findTicketCreatedByUser(user));
+        return model;
     }
 
+
     @GetMapping(path = "/add")
-    public String addNewUser(Model model){
-        model.addAttribute("user", new User());
-        return DIRECTORY+"new";
+    public ModelAndView addNewUser(){
+        ModelAndView model = new ModelAndView(DIRECTORY+"new");
+        model.addObject("user", new User());
+        return model;
     }
 
     @PostMapping(path = "/add")
     public String addNewUser(User user){
-        user.setUserName(generateUsername(user));
-        userService.saveUser(user);
-        return DIRECTORY+"saved";
+        User newUser = userService.saveUser(user);
+        return "redirect:/user/"+  + newUser.getUserId();
     }
 
     @GetMapping(path = "/edit/{id}")
-    public String editUser(@PathVariable Long id, Model model){
-        model.addAttribute("user", userService.findUser(id));
-        return DIRECTORY+"edit";
+    public ModelAndView editUserPage(@PathVariable Long id){
+        ModelAndView model = new ModelAndView(DIRECTORY+"edit");
+        model.addObject("user", userService.findUser(id));
+        return model;
     }
 
     @PostMapping(path = "/edit/{id}")
     public String editUser(@PathVariable Long id, User user){
         userService.updateUser(id, user);
-        return DIRECTORY+"edited";
+        return "redirect:/user/" + user.getUserId();
     }
 
     @GetMapping(path = "/delete/{id}")
-    public String deleteUser(@PathVariable Long id, Model model){
-        model.addAttribute("user", userService.findUser(id));
-        return DIRECTORY+"delete";
+    public ModelAndView deleteUserPage(@PathVariable Long id){
+        ModelAndView model = new ModelAndView(DIRECTORY+"delete");
+        model.addObject("user", userService.findUser(id));
+        return model;
     }
 
     @PostMapping(path = "/delete/{id}")
-    public String deleteUser(@PathVariable Long id, User user){
-        user.setUserId(id);
-        userService.deleteUser(user);
-        return DIRECTORY+"deleted";
+    public String deleteUser(@PathVariable Long id){
+        userService.deleteUserById(id);
+        return "redirect:/user";
     }
 
-    // == private methods ==
-    private String generateUsername(User user){
-        String firstName = Normalizer.normalize(user.getFirstName(), Normalizer.Form.NFD).replaceAll("[\\p{InCombiningDiacriticalMarks}]","").replaceAll("[^a-zA-Z]","").toLowerCase().substring(0,2);
-        String lastName = Normalizer.normalize(user.getLastName(), Normalizer.Form.NFD).replaceAll("[\\p{InCombiningDiacriticalMarks}]","").replaceAll("[^a-zA-Z]","").toLowerCase().substring(0,3);
+    @ModelAttribute
+    public void addAttributes(Model model){
+        model.addAttribute("userSigned", getSignedUser());
+    }
 
-        return firstName + lastName + LocalDateTime.now().getSecond();
+    private User getSignedUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return userService.findByUsername(authentication.getName());
     }
 }

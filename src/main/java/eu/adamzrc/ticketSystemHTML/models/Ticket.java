@@ -24,7 +24,7 @@ public class Ticket {
     private User createdByUser;
 
     @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "userId")
     private User assignedUser;
 
     private Date dateCreated;
