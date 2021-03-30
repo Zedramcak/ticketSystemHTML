@@ -26,13 +26,14 @@ import java.util.HashSet;
 
 @Configuration
 public class FillDatabase {
-    // == constants ==
 
-    // == fields ==
-
-    // == constructors ==
-
-    // == public methods ==
+    /**
+     * Fill the user database with users if the db has less than 100 entities, setting their role to "USER" and password to "password"
+     * @param userRepository repository of the users
+     * @param userService service used for saving the users
+     * @param roleService service for retrieving the roles
+     * @return null
+     */
     @Bean
     CommandLineRunner initDatabase(UserRepository userRepository, UserService userService, RoleService roleService){
         while (userRepository.count()<100) {
