@@ -35,6 +35,13 @@ public class User{
 
     private int active;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "manager_id")
+    private User manager;
+
+    @OneToMany(mappedBy = "manager")
+    private List<User> subordinates;
+
     @OneToMany(mappedBy = "assignedUser")
     private List<Ticket> tickets;
 
@@ -117,6 +124,22 @@ public class User{
 
     public void setActive(int active) {
         this.active = active;
+    }
+
+    public User getManager() {
+        return manager;
+    }
+
+    public void setManager(User manager) {
+        this.manager = manager;
+    }
+
+    public List<User> getSubordinates() {
+        return subordinates;
+    }
+
+    public void setSubordinates(List<User> subordinates) {
+        this.subordinates = subordinates;
     }
 
     // == private methods ==
