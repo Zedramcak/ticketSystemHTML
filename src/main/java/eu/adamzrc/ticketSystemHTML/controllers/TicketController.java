@@ -1,7 +1,10 @@
 package eu.adamzrc.ticketSystemHTML.controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.adamzrc.ticketSystemHTML.models.Ticket;
 import eu.adamzrc.ticketSystemHTML.models.User;
+import eu.adamzrc.ticketSystemHTML.models.apiNamesDay.Svatek;
 import eu.adamzrc.ticketSystemHTML.service.ITicketService;
 import eu.adamzrc.ticketSystemHTML.service.IUserService;
 import eu.adamzrc.ticketSystemHTML.models.Status;
@@ -12,6 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
 
@@ -87,8 +93,14 @@ public class TicketController {
     }
 
     @ModelAttribute
-    public void addAttributes(Model model){
+    public void addAttributes(Model model) throws IOException {
         model.addAttribute("userSigned", getSignedUser());
+
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode jsonNode = mapper.readTree(new URL("https://api.abalin.net/today?country=cz&timezone=Europe%2FPrague"));
+        Svatek svatky = mapper.convertValue(jsonNode, Svatek.class);
+
+        model.addAttribute("svatek", svatky.getData().getNamedays().getCz());
     }
 
     private User getSignedUser(){
