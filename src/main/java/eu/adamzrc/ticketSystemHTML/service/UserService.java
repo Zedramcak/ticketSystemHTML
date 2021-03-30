@@ -68,7 +68,9 @@ public class UserService implements IUserService{
     @Override
     public void updateUser(Long id, User updatedUser){
         updatedUser.setUserId(id);
-        updatedUser.setUsername(repository.findById(id).get().getUsername());
+        updatedUser.setUsername(findUser(id).getUsername());
+        updatedUser.setActive(1);
+        updatedUser.setPassword(findUser(id).getPassword());
         repository.save(updatedUser);
     }
 
