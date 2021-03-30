@@ -23,7 +23,31 @@
         </div>
         <p>birth day: <span th:text="${user.birthDate}">DATE</span></p>
         <a name="" id="" class="btn btn-primary" th:href="@{/user/edit/{id}(id = ${user.userId})}" role="button">EDIT</a>
-        <a name="" id="" class="btn btn-primary" th:href="@{/user/delete/{id}(id = ${user.userId})}" role="button">DELETE</a>
+        <a name="" id="" class="btn btn-primary" th:href="@{/user/delete/{id}(id = ${user.userId})}" role="button" sec:authorize="hasAuthority('ADMIN')">DELETE</a>
+        <div th:if="${!subordinates.empty}">
+            <h2>Subordinates</h2>
+            <table class="table table-dark table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>username</th>
+                        <th>Profile</th>
+                        <th>Number of tickets</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${subordinates.empty}">
+                        <td colspan="4">NO SUBORDINATES</td>
+                    </tr>
+                    <tr th:each="subordinate : ${subordinates}">
+                        <td><span th:text="${subordinate.firstName + ' ' + subordinate.lastName}">firstName lastName</span></td>
+                        <td><span th:text="${subordinate.username}">username</span></td>
+                        <td><a th:href="@{/user/{username}(username = ${subordinate.username})}" class="btn btn-primary">PROFILE</a></td>
+                        <td><span th:text="${#lists.size(subordinate.tickets)}">numberOfTickets</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <h2>Assigned tickets</h2>
         <table class="table table-dark table-striped table-hover">
             <thead>
