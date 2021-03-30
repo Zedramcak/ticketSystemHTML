@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head th:insert="fragments/header :: header (title='Users')"></head>
 <body>
     <div th:insert="fragments/header :: navBar (userSigned = ${userSigned})"></div>
     <div class="container">
         <h2>List of Users</h2>
-        <h3 th:text="${msg}">second text</h3>
+        <a th:href="@{/user/add}" role="button" class="btn btn-primary" sec:authorize="hasAuthority('ADMIN')">ADD NEW USER</a>
         <table class="table table-dark table-striped table-hover">
             <thead>
                 <tr>
                     <th>username</th>
                     <th style="width: 50%" class="text-center align-middle">Name</th>
-                    <th>EDIT</th>
-                    <th>DELETE</th>
+                    <th sec:authorize="hasAuthority('ADMIN')">EDIT</th>
+                    <th sec:authorize="hasAuthority('ADMIN')">DELETE</th>
+                    <th sec:authorize="hasAuthority('ADMIN')">ADMIN?</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,17 +34,20 @@
                             firstName lastName
                         </span>
                     </td>
-                    <td>
+                    <td sec:authorize="hasAuthority('ADMIN')">
                         <a th:href="@{/user/edit/{id}(id = ${user.userId})}" class="btn btn-primary">EDIT</a>
                     </td>
-                    <td>
+                    <td sec:authorize="hasAuthority('ADMIN')">
                         <a th:href="@{/user/delete/{id}(id = ${user.userId})}" class="btn btn-danger">DELETE</a>
                         <!-- <span><a th:href="@{/user/delete/{id}(id = ${user.userId})}">DELETE</a></span> -->
+                    </td>
+                    <td sec:authorize="hasAuthority('ADMIN')">
+                        <p class=" text-white" th:if="${not user.roles.?[role == 'ADMIN'].isEmpty()}">YES</p>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <a th:href="@{/user/add}" role="button">ADD NEW USER</a>
+        
         <div th:insert="fragments/footer :: footer"></div>
     </div>
 </body>
