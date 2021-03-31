@@ -47,46 +47,46 @@ nav .navbar-brand {
 }
 
 /* line 63, ../Java/REST project/ticketSystemHTML/src/main/resources/static/sass/style.scss */
-.row {
+.homepage-row {
   background: #14333c;
   border-radius: 20px;
 }
 
-/* line 68, ../Java/REST project/ticketSystemHTML/src/main/resources/static/sass/style.scss */
+/* line 66, ../Java/REST project/ticketSystemHTML/src/main/resources/static/sass/style.scss */
+.homepage-row.homepage-banner {
+  align-items: center;
+  height: 274px;
+}
+
+@media screen and (min-width: 540px) {
+  /* line 66, ../Java/REST project/ticketSystemHTML/src/main/resources/static/sass/style.scss */
+  .homepage-row.homepage-banner {
+    height: 224px;
+  }
+}
+
+@media screen and (min-width: 770px) {
+  /* line 66, ../Java/REST project/ticketSystemHTML/src/main/resources/static/sass/style.scss */
+  .homepage-row.homepage-banner {
+    height: 174px;
+  }
+}
+
+/* line 78, ../Java/REST project/ticketSystemHTML/src/main/resources/static/sass/style.scss */
 .page-container {
   background-color: #17404c;
   position: relative;
   min-height: 100vh;
 }
 
-/* line 74, ../Java/REST project/ticketSystemHTML/src/main/resources/static/sass/style.scss */
+/* line 84, ../Java/REST project/ticketSystemHTML/src/main/resources/static/sass/style.scss */
 .page-content {
   padding-bottom: 56px;
 }
 
-/* line 78, ../Java/REST project/ticketSystemHTML/src/main/resources/static/sass/style.scss */
+/* line 88, ../Java/REST project/ticketSystemHTML/src/main/resources/static/sass/style.scss */
 li .nav-item {
   color: white;
-}
-
-/* line 82, ../Java/REST project/ticketSystemHTML/src/main/resources/static/sass/style.scss */
-.homepage-banner {
-  align-items: center;
-  height: 274px;
-}
-
-@media screen and (min-width: 540px) {
-  /* line 82, ../Java/REST project/ticketSystemHTML/src/main/resources/static/sass/style.scss */
-  .homepage-banner {
-    height: 224px;
-  }
-}
-
-@media screen and (min-width: 770px) {
-  /* line 82, ../Java/REST project/ticketSystemHTML/src/main/resources/static/sass/style.scss */
-  .homepage-banner {
-    height: 174px;
-  }
 }
 
 /*# sourceMappingURL=style.css.map */

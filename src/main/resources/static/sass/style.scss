@@ -60,9 +60,19 @@ nav {
   }
 }
 
-.row {
+.homepage-row {
   background: #14333c;
   border-radius: 20px;
+  &.homepage-banner {
+    align-items: center;
+    height: $h1-height + 200;
+    @media screen and (min-width: $phone) {
+      height: $h1-height + 150;
+    }
+    @media screen and (min-width: $tablet) {
+      height: $h1-height + 100;
+    }
+  }
 }
 
 .page-container {
@@ -77,15 +87,4 @@ nav {
 
 li .nav-item {
   color: white;
-}
-
-.homepage-banner {
-  align-items: center;
-  height: $h1-height + 200;
-  @media screen and (min-width: $phone) {
-    height: $h1-height + 150;
-  }
-  @media screen and (min-width: $tablet) {
-    height: $h1-height + 100;
-  }
 }
