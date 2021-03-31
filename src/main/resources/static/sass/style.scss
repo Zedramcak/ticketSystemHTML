@@ -1,0 +1,91 @@
+$color-primary-0: #17404c;
+$color-primary-1: #185f73;
+$color-primary-2: #164d5d;
+$color-primary-3: #14333c;
+$color-primary-4: #10262c;
+
+$h1-height: 74px;
+$footer-height: 56px;
+$font-top: "Play", sans-serif;
+
+$phone: 540px;
+$tablet: 770px;
+
+h2 {
+  height: $h1-height;
+  left: 18px;
+
+  font-family: Play;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 64px;
+  line-height: 74px;
+  /* identical to box height */
+
+  text-align: center;
+
+  color: #ffffff;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: $footer-height;
+  background-color: $color-primary-1;
+}
+
+nav {
+  position: absolute;
+  width: 100%;
+  height: 56px;
+  left: 0px;
+  top: 0px;
+  font-family: "Play", sans-serif;
+  background: linear-gradient(
+    180deg,
+    #bdbfee 0%,
+    $color-primary-4 0.01%,
+    $color-primary-1 100%
+  );
+  .show {
+    background-color: $color-primary-1;
+  }
+  .navbar-brand {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: center;
+  }
+}
+
+.row {
+  background: #14333c;
+  border-radius: 20px;
+}
+
+.page-container {
+  background-color: $color-primary-0;
+  position: relative;
+  min-height: 100vh;
+}
+
+.page-content {
+  padding-bottom: $footer-height;
+}
+
+li .nav-item {
+  color: white;
+}
+
+.homepage-banner {
+  align-items: center;
+  height: $h1-height + 200;
+  @media screen and (min-width: $phone) {
+    height: $h1-height + 150;
+  }
+  @media screen and (min-width: $tablet) {
+    height: $h1-height + 100;
+  }
+}

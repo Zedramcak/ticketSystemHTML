@@ -1,22 +1,25 @@
 <!DOCTYPE html>
-<html lang="en"
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org"
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <head th:fragment="header (title)">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
     <title th:text="${title}">Title</title>
 </head>
+
 <body>
     <div>
-        <div th:fragment="navBar" class="container pb-4">
-            <nav id="navbar_top" class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <div th:fragment="navBar">
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <div class="navbar-collapse collapse order-2 dual-collapse2 order-lg-first w-100">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a th:href="@{/user}" class="nav-link">Users</a>
@@ -26,17 +29,18 @@
                         </li>
                     </ul>
                 </div>
-                <div class="mx-auto order-0">
-                    <a class="navbar-brand mx-auto" th:href="@{/}">TICKET SERVICE</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".dual-collapse2">
+                <div class="mx-auto order-1">
+                    <a class="navbar-brand mx-auto" th:href="@{/}">TICKET SYSTEM</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target=".dual-collapse2">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                 </div>
                 <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <p class=" navbar-text">Dnes má svátek <span th:text="${svatek}">svatek</span></p>
-                        </li>
+                        </li> -->
                         <div sec:authorize="!isAuthenticated()">
                             <li class="nav-item">
                                 <a class="nav-link" th:href="@{/login}">LOGIN</a>
@@ -51,12 +55,13 @@
                             <li class="nav-item">
                                 <a class="nav-link" th:href="@{/logout}">logout</a>
                             </li>
-                        </div>                        
+                        </div>
                     </ul>
                 </div>
             </nav>
         </div>
     </div>
-    
+
 </body>
+
 </html>
