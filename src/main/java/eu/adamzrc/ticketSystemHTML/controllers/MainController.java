@@ -6,6 +6,8 @@ import eu.adamzrc.ticketSystemHTML.models.apiNamesDay.Svatek;
 import eu.adamzrc.ticketSystemHTML.models.User;
 import eu.adamzrc.ticketSystemHTML.service.TicketService;
 import eu.adamzrc.ticketSystemHTML.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,7 +18,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
@@ -29,6 +30,8 @@ public class MainController {
     private UserService userService;
     @Autowired
     private TicketService ticketService;
+
+    Logger logger = LoggerFactory.getLogger(MainController.class);
 
     @GetMapping("/login")
     public String loginPage(){
@@ -57,14 +60,19 @@ public class MainController {
     }
 
     @ModelAttribute
-    public void addAttributes(Model model) throws IOException {
+    public void addAttributes(Model model){
         model.addAttribute("userSigned", getSignedUser());
 
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode jsonNode = mapper.readTree(new URL("https://api.abalin.net/today?country=cz&timezone=Europe%2FPrague"));
-        Svatek svatky = mapper.convertValue(jsonNode, Svatek.class);
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode jsonNode = mapper.readTree(new URL("https://api.abalin.net/today?country=cz&timezone=Europe%2FPrague"));
+            Svatek svatky = mapper.convertValue(jsonNode, Svatek.class);
 
-        model.addAttribute("svatek", svatky.getData().getNamedays().getCz());
+            model.addAttribute("svatek", svatky.getData().getNamedays().getCz());
+            logger.info("Namesday added");
+        }catch (IOException e){
+            logger.error(e.getMessage());
+        }
 
 
     }
