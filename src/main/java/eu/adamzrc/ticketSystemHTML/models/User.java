@@ -1,11 +1,7 @@
 package eu.adamzrc.ticketSystemHTML.models;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -48,6 +44,10 @@ public class User{
     @ManyToMany
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+
+    @ManyToMany
+    @JoinTable(name = "user_team", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
+    private Set<Team> teams;
 
     // == constructors ==
 
@@ -140,6 +140,14 @@ public class User{
 
     public void setSubordinates(List<User> subordinates) {
         this.subordinates = subordinates;
+    }
+
+    public Set<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(Set<Team> teams) {
+        this.teams = teams;
     }
 
     // == private methods ==

@@ -63,16 +63,16 @@ public class MainController {
     public void addAttributes(Model model){
         model.addAttribute("userSigned", getSignedUser());
 
-        try{
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode jsonNode = mapper.readTree(new URL("https://api.abalin.net/today?country=cz&timezone=Europe%2FPrague"));
-            Svatek svatky = mapper.convertValue(jsonNode, Svatek.class);
-
-            model.addAttribute("svatek", svatky.getData().getNamedays().getCz());
-            logger.info("Namesday added");
-        }catch (IOException e){
-            logger.error(e.getMessage());
-        }
+//        try{
+//            ObjectMapper mapper = new ObjectMapper();
+//            JsonNode jsonNode = mapper.readTree(new URL("https://api.abalin.net/today?country=cz&timezone=Europe%2FPrague"));
+//            Svatek svatky = mapper.convertValue(jsonNode, Svatek.class);
+//
+//            model.addAttribute("svatek", svatky.getData().getNamedays().getCz());
+//            logger.info("Namesday added");
+//        }catch (IOException e){
+//            logger.error(e.getMessage());
+//        }
 
 
     }

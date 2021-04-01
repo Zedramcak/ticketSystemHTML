@@ -36,6 +36,11 @@ public class Ticket {
     @Enumerated
     @Column(columnDefinition = "smallint")
     private Status status;
+
+    @ManyToOne
+    @JoinColumn(name = "projectId")
+    private Project project;
+
     // == constructors ==
 
     // == public methods ==
@@ -110,6 +115,14 @@ public class Ticket {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     // == private methods ==

@@ -1,8 +1,10 @@
 package eu.adamzrc.ticketSystemHTML.configuration;
 
 import com.github.javafaker.Faker;
+import eu.adamzrc.ticketSystemHTML.models.Project;
 import eu.adamzrc.ticketSystemHTML.models.Role;
 import eu.adamzrc.ticketSystemHTML.models.User;
+import eu.adamzrc.ticketSystemHTML.repositories.ProjectRepository;
 import eu.adamzrc.ticketSystemHTML.repositories.RoleRepository;
 import eu.adamzrc.ticketSystemHTML.repositories.UserRepository;
 import eu.adamzrc.ticketSystemHTML.service.RoleService;
@@ -35,7 +37,7 @@ public class FillDatabase {
      * @return null
      */
     @Bean
-    CommandLineRunner initDatabase(UserRepository userRepository, UserService userService, RoleService roleService){
+    CommandLineRunner initDatabase(UserRepository userRepository, UserService userService, RoleService roleService, ProjectRepository projectRepository){
         while (userRepository.count()<100) {
             Faker faker = new Faker();
 
@@ -49,8 +51,6 @@ public class FillDatabase {
             user.setActive(1);
             user.setPassword("password");
             userService.saveUser(user);
-
-
         }
         return null;
     }

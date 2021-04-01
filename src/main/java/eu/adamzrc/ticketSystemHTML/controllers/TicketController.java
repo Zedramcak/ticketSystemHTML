@@ -96,11 +96,11 @@ public class TicketController {
     public void addAttributes(Model model) throws IOException {
         model.addAttribute("userSigned", getSignedUser());
 
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode jsonNode = mapper.readTree(new URL("https://api.abalin.net/today?country=cz&timezone=Europe%2FPrague"));
-        Svatek svatky = mapper.convertValue(jsonNode, Svatek.class);
-
-        model.addAttribute("svatek", svatky.getData().getNamedays().getCz());
+//        ObjectMapper mapper = new ObjectMapper();
+//        JsonNode jsonNode = mapper.readTree(new URL("https://api.abalin.net/today?country=cz&timezone=Europe%2FPrague"));
+//        Svatek svatky = mapper.convertValue(jsonNode, Svatek.class);
+//
+//        model.addAttribute("svatek", svatky.getData().getNamedays().getCz());
     }
 
     private User getSignedUser(){
