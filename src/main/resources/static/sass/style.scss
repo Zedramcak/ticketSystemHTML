@@ -1,10 +1,6 @@
-$color-primary-0: #17404c;
-$color-primary-1: #185f73;
-$color-primary-2: #164d5d;
-$color-primary-3: #14333c;
-$color-primary-4: #10262c;
+@import "colors";
 
-$h1-height: 74px;
+$h2-height: 75px;
 $footer-height: 56px;
 $font-top: "Play", sans-serif;
 
@@ -12,7 +8,7 @@ $phone: 540px;
 $tablet: 770px;
 
 h2 {
-  height: $h1-height;
+  height: $h2-height;
   left: 18px;
 
   font-family: Play;
@@ -65,12 +61,12 @@ nav {
   border-radius: 20px;
   &.homepage-banner {
     align-items: center;
-    height: $h1-height + 200;
+    height: $h2-height + 200;
     @media screen and (min-width: $phone) {
-      height: $h1-height + 150;
+      height: $h2-height + 150;
     }
     @media screen and (min-width: $tablet) {
-      height: $h1-height + 100;
+      height: $h2-height + 100;
     }
   }
 }
