@@ -1,26 +1,39 @@
 @import "colors";
+@import "screens";
 
 $h2-height: 75px;
 $footer-height: 56px;
 $font-top: "Play", sans-serif;
+$font-main: "Roboto", sans-serif;
 
-$phone: 540px;
-$tablet: 770px;
-
-h2 {
+@mixin h1h2Style {
   height: $h2-height;
-  left: 18px;
 
   font-family: Play;
   font-style: normal;
   font-weight: bold;
-  font-size: 64px;
+  font-size: 4rem;
   line-height: 74px;
   /* identical to box height */
 
   text-align: center;
+}
+
+body {
+  font-family: $font-main;
+  color: black;
+}
+
+h1 {
+  @include h1h2Style();
 
   color: #ffffff;
+}
+
+h2 {
+  @include h1h2Style();
+
+  color: #000000;
 }
 
 footer {
@@ -35,15 +48,17 @@ nav {
   position: absolute;
   width: 100%;
   height: 56px;
-  left: 0px;
-  top: 0px;
+  // left: 0px;
+  // top: 0px;
   font-family: "Play", sans-serif;
+
   background: linear-gradient(
     180deg,
     #bdbfee 0%,
     $color-primary-4 0.01%,
     $color-primary-1 100%
   );
+
   .show {
     background-color: $color-primary-1;
   }
@@ -72,13 +87,23 @@ nav {
 }
 
 .page-container {
-  background-color: $color-primary-0;
+  background-color: $color-background;
   position: relative;
   min-height: 100vh;
 }
 
 .page-content {
   padding-bottom: $footer-height;
+}
+
+.tech-img {
+  position: relative;
+  height: 10em;
+  img {
+    top: 25%;
+    left: 25%;
+    height: 100%;
+  }
 }
 
 li .nav-item {

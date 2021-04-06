@@ -11,7 +11,7 @@ import java.util.List;
  * Created by Adam Zrcek on 23.03.2021
  */
 public interface IUserService {
-    Page<User> getUsersPageable(Pageable page);
+    Page<User> getUsersPageable(Integer pageNo, Integer pageSize, String orderBy);
     User findByUsername(String username);
     User findUser(Long id);
     void deleteUserById(Long id);

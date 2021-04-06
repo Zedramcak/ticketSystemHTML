@@ -7,9 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by Adam Zrcek on 28.03.2021
- */
+
 @Service
 public class RoleService implements IRoleService{
     @Autowired
@@ -24,13 +22,4 @@ public class RoleService implements IRoleService{
     public Role findRoleByName(String name) {
         return repository.findByRole(name);
     }
-    // == constants ==
-
-    // == fields ==
-
-    // == constructors ==
-
-    // == public methods ==
-
-    // == private methods ==
 }

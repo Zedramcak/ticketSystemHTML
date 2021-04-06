@@ -2,9 +2,6 @@ package eu.adamzrc.ticketSystemHTML.models;
 
 import javax.persistence.*;
 
-/**
- * Created by Adam Zrcek on 28.03.2021
- */
 @Entity
 public class Role {
     @Id

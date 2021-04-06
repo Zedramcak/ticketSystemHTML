@@ -5,9 +5,6 @@ import eu.adamzrc.ticketSystemHTML.models.User;
 
 import java.util.List;
 
-/**
- * Created by Adam Zrcek on 23.03.2021
- */
 public interface ITicketService{
     List<Ticket> findTicketCreatedByUser(User user);
     Ticket findTicket(Long id);

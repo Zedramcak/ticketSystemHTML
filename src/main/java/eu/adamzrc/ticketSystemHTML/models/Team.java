@@ -2,9 +2,7 @@ package eu.adamzrc.ticketSystemHTML.models;
 
 import javax.persistence.*;
 
-/**
- * Created by Adam Zrcek on 01.04.2021
- */
+
 @Entity
 public class Team {
 

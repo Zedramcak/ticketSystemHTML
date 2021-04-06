@@ -3,9 +3,6 @@ package eu.adamzrc.ticketSystemHTML.models;
 import javax.persistence.*;
 import java.util.List;
 
-/**
- * Created by Adam Zrcek on 01.04.2021
- */
 @Entity
 public class Project {
 

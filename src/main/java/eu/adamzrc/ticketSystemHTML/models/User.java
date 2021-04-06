@@ -5,14 +5,8 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by Adam Zrcek on 23.03.2021
- */
 @Entity
 public class User{
-    // == constants ==
-
-    // == fields ==
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userId;
@@ -49,10 +43,6 @@ public class User{
     @JoinTable(name = "user_team", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
     private Set<Team> teams;
 
-    // == constructors ==
-
-    // == public methods ==
-
     public Long getUserId() {
         return userId;
     }
@@ -88,7 +78,6 @@ public class User{
     public String getUsername() {
         return username;
     }
-
 
     public void setUsername(String username) {
         this.username = username;
@@ -150,5 +139,4 @@ public class User{
         this.teams = teams;
     }
 
-    // == private methods ==
 }

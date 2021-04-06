@@ -1,57 +1,49 @@
 <!DOCTYPE html>
-<html lang="en"
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org"
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-    <head th:insert="fragments/header :: header (title='Add new Ticket')"></head>
+
+<head th:insert="fragments/header :: header (title='Add new Ticket')"></head>
+
 <body>
-    <div th:insert="fragments/header :: navBar"></div>
-    <div class="container">
-        <h1>NEW TICKET WILL BE CREATED HERE</h1>
-        <form action="#" th:action="@{/tickets/add}" th:object="${ticket}" method="post" id="newTicketfrm">
-            <div class="row">
-                <div class="col-6 align-items-center">
-                    <input type="text" class="form-control" th:field="*{name}" placeholder="Subject">
-                </div>
+    <div class="page-container">
+        <div th:insert="fragments/header :: navBar"></div>
+        <div class="page-content">
+            <div class="container">
+                <h1>NEW TICKET WILL BE CREATED HERE</h1>
+                <form action="#" th:action="@{/tickets/add}" th:object="${ticket}" method="post" id="newTicketfrm">
+                    <div class="row">
+                        <div class="col-6 align-items-center">
+                            <input type="text" class="form-control" th:field="*{name}" placeholder="Subject">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <textarea th:field="*{description}" form="newTicketfrm" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label for="dueDate">Due date:</label>
+                            <input type="date" th:field="*{dueDate}">
+                        </div>
+                        <div class="col-4">
+                            <label for="assignedUser">
+                                Assign to
+                            </label>
+                            <select class="form-select" th:field="*{assignedUser}">
+                                <option value="">--</option>
+                                <option th:each="user : ${users}" th:value="${user.userId}"
+                                    th:text="${user.firstName + ' ' + user.lastName}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <input type="submit" value="Create new" class="btn btn-primary">
+                </form>
             </div>
-            <div class="row">
-                <div class="col">
-                    <textarea th:field="*{description}" form="newTicketfrm" class="form-control"></textarea>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-4">
-                    <label for="dueDate">Due date:</label>
-                    <input type="date" th:field="*{dueDate}">
-                </div>
-                <div class="col-4">
-                    <label for="assignedUser">
-                        Assign to
-                    </label>
-                    <select class="form-select" th:field="*{assignedUser}">
-                        <option value="">--</option>
-                        <option th:each="user : ${users}"
-                                th:value="${user.userId}"
-                                th:text="${user.firstName + ' ' + user.lastName}"></option>
-                    </select>
-                </div>
-                <!-- <div class="col-4">
-                    <label for="createdByUser">
-                        Created by
-                    </label>
-                    <select class="form-select" th:field="*{createdByUser}">
-                        <option value="">--</option>
-                        <option th:each="user : ${users}"
-                                th:value="${user.userId}"
-                                th:text="${user.firstName + ' ' + user.lastName}"></option>
-                    </select>
-                </div> -->
-            </div>
-            <input type="submit" value="Create new" class="btn btn-primary">
-        </form>
+        </div>
         <div th:insert="fragments/footer :: footer"></div>
     </div>
-
 </body>
+
 </html>

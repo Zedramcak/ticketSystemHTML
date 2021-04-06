@@ -1,8 +1,5 @@
 package eu.adamzrc.ticketSystemHTML.controllers;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import eu.adamzrc.ticketSystemHTML.models.apiNamesDay.Svatek;
 import eu.adamzrc.ticketSystemHTML.models.User;
 import eu.adamzrc.ticketSystemHTML.service.TicketService;
 import eu.adamzrc.ticketSystemHTML.service.UserService;
@@ -17,13 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.IOException;
-import java.net.URL;
 
-/**
- * Created by Adam Zrcek on 27.03.2021
- */
 @Controller
+//@RequestMapping(path = "/ticketSystem")
 public class MainController {
 
     @Autowired
@@ -55,26 +48,13 @@ public class MainController {
         model.addObject("user", signedUser);
         model.addObject("tickets", signedUser.getTickets());
         model.addObject("createdTickets", ticketService.findTicketCreatedByUser(signedUser));
-        model.addObject("subordinates", getSignedUser().getSubordinates());
+        model.addObject("subordinates", signedUser.getSubordinates());
         return model;
     }
 
     @ModelAttribute
-    public void addAttributes(Model model){
+    public void addAttributesToAllModels(Model model){
         model.addAttribute("userSigned", getSignedUser());
-
-//        try{
-//            ObjectMapper mapper = new ObjectMapper();
-//            JsonNode jsonNode = mapper.readTree(new URL("https://api.abalin.net/today?country=cz&timezone=Europe%2FPrague"));
-//            Svatek svatky = mapper.convertValue(jsonNode, Svatek.class);
-//
-//            model.addAttribute("svatek", svatky.getData().getNamedays().getCz());
-//            logger.info("Namesday added");
-//        }catch (IOException e){
-//            logger.error(e.getMessage());
-//        }
-
-
     }
 
     private User getSignedUser(){

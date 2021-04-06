@@ -5,7 +5,9 @@ import eu.adamzrc.ticketSystemHTML.repositories.TicketRepository;
 import eu.adamzrc.ticketSystemHTML.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -13,21 +15,15 @@ import java.text.Normalizer;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * Created by Adam Zrcek on 23.03.2021
- */
 @Service
 public class UserService implements IUserService{
-    // == fields ==
+
     @Autowired
     private UserRepository repository;
     @Autowired
     private TicketRepository ticketRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-    // == constructors ==
-
-    // == public methods ==
 
 
     @Override
@@ -36,8 +32,10 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public Page<User> getUsersPageable(Pageable page) {
-        return repository.findAll(page);
+    public Page<User> getUsersPageable(Integer pageNo, Integer pageSize, String orderBy) {
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(orderBy));
+
+        return repository.findAll(paging);
     }
 
     @Override
@@ -79,7 +77,6 @@ public class UserService implements IUserService{
         return (List<User>) repository.findAll();
     }
 
-    // == private methods ==
     private String generateUsername(User user){
         String firstName = Normalizer.normalize(user.getFirstName(), Normalizer.Form.NFD).replaceAll("[\\p{InCombiningDiacriticalMarks}]","").replaceAll("[^a-zA-Z]","").toLowerCase().substring(0,2);
         String lastName = Normalizer.normalize(user.getLastName(), Normalizer.Form.NFD).replaceAll("[\\p{InCombiningDiacriticalMarks}]","").replaceAll("[^a-zA-Z]","").toLowerCase().substring(0,3);

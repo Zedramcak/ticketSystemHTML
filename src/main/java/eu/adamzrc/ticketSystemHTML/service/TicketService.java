@@ -8,20 +8,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by Adam Zrcek on 23.03.2021
- */
 @Service
 public class TicketService implements ITicketService{
-    // == constants ==
-
-    // == fields ==
     @Autowired
     private TicketRepository repository;
-    // == constructors ==
-
-    // == public methods ==
-
 
     @Override
     public List<Ticket> findTicketCreatedByUser(User user) {
@@ -53,6 +43,4 @@ public class TicketService implements ITicketService{
     public List<Ticket> findAll() {
         return (List<Ticket>) repository.findAll();
     }
-
-    // == private methods ==
 }

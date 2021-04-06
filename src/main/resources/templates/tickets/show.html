@@ -1,76 +1,85 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-    <head th:insert="fragments/header :: header (title=${ticket.id})"></head>
-    <body>
+
+<head th:insert="fragments/header :: header (title=${ticket.id})"></head>
+
+<body>
+    <div class="page-container">
         <div th:insert="fragments/header :: navBar"></div>
-        <div class="container pt-5">
-            <div class="row">
-                <div class="col-6">
-                    <h1 th:text="${ticket.name}">Ticket Name</h1>
+        <div class="page-content">
+            <div class="container pt-5">
+                <div class="row">
+                    <div class="col-6">
+                        <h1 th:text="${ticket.name}">Ticket Name</h1>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <p>Assigned User:
+                                <a th:href="@{/users/{username}(username = ${ticket.assignedUser.username})}">
+                                    <span th:text="${ticket.assignedUser.username}">
+                                        Assigned User
+                                    </span>
+                                </a>
+                            </p>
+                        </div>
+                        <div class="row">
+                            <p>Created By:
+                                <a th:href="@{/users/{username}(username = ${ticket.createdByUser.username})}">
+                                    <span th:text="${ticket.createdByUser.username}">
+                                        Creator
+                                    </span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-6">
-                    <div class="row">
-                        <p>Assigned User: 
-                            <a th:href="@{/user/{username}(username = ${ticket.assignedUser.username})}">
-                                <span th:text="${ticket.assignedUser.username}">
-                                    Assigned User
-                                </span>
-                            </a>
+                <div class="row">
+                    <div class="col-10 border border-2 border-dark rounded-2">
+                        <p th:text="${ticket.description}">
+                            DESCRIPTION
                         </p>
                     </div>
-                    <div class="row">
-                        <p>Created By: 
-                            <a th:href="@{/user/{username}(username = ${ticket.createdByUser.username})}">    
-                                <span th:text="${ticket.createdByUser.username}">
-                                    Creator
-                                </span>
-                            </a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="row" >
-                <div class="col-10 border border-2 border-dark rounded-2">
-                    <p th:text="${ticket.description}" >
-                        DESCRIPTION
-                    </p>
-                </div>
-                <div class="col-2">
-                    <div th:switch="${ticket.status}">
-                        <div class="d-grid" th:case="${T(eu.adamzrc.ticketSystemHTML.models.Status).NEW}">
-                            <form th:action="@{/tickets/{id}/editStatus(id = ${ticket.id})}" method="post">
-                                <input type="submit" class="btn btn-primary d-grid" value="NEW"></input>
-                            </form>
+                    <div class="col-2">
+                        <div th:switch="${ticket.status}">
+                            <div class="d-grid" th:case="${T(eu.adamzrc.ticketSystemHTML.models.Status).NEW}">
+                                <form th:action="@{/tickets/{id}/editStatus(id = ${ticket.id})}" method="post">
+                                    <input type="submit" class="btn btn-primary d-grid" value="NEW"></input>
+                                </form>
+                            </div>
+                            <div class="d-grid" th:case="${T(eu.adamzrc.ticketSystemHTML.models.Status).IN_PROGRESS}">
+                                <form th:action="@{/tickets/{id}/editStatus(id = ${ticket.id})}" method="post">
+                                    <input type="submit" class="btn btn-success d-grid" value="IN PROGRESS"></input>
+                                </form>
+                            </div>
+                            <div class="d-grid" th:case="${T(eu.adamzrc.ticketSystemHTML.models.Status).FINISHED}">
+                                <button href="#" class="btn btn-info d-grid">FINISHED</button>
+                            </div>
                         </div>
-                        <div class="d-grid" th:case="${T(eu.adamzrc.ticketSystemHTML.models.Status).IN_PROGRESS}">
-                            <form th:action="@{/tickets/{id}/editStatus(id = ${ticket.id})}" method="post">
-                                <input type="submit" class="btn btn-success d-grid" value="IN PROGRESS"></input>
-                            </form>
-                        </div>
-                        <div class="d-grid" th:case="${T(eu.adamzrc.ticketSystemHTML.models.Status).FINISHED}">
-                            <button href="#" class="btn btn-info d-grid">FINISHED</button>
-                        </div>
-                    </div>
-                    <div class="d-grid">
-                        <button class="btn btn-danger" data-bs-toggle='modal' data-bs-target='#exampleModal'>DELETE</button>
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">TICKET WILL BE DELETED</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>Are you sure you want to delete this ticket?</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
-                                        <form id="deleteTicket" th:action="@{/tickets/{id}/delete(id = ${ticket.id})}" method="POST">
-                                            <input type="submit" value="DELETE" class="btn btn-danger">
-                                        </form>
+                        <div class="d-grid">
+                            <button class="btn btn-danger" data-bs-toggle='modal'
+                                data-bs-target='#exampleModal'>DELETE</button>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">TICKET WILL BE DELETED</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Are you sure you want to delete this ticket?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Back</button>
+                                            <form id="deleteTicket"
+                                                th:action="@{/tickets/{id}/delete(id = ${ticket.id})}" method="POST">
+                                                <input type="submit" value="DELETE" class="btn btn-danger">
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -78,7 +87,9 @@
                     </div>
                 </div>
             </div>
-            <div th:insert="fragments/footer :: footer"></div>
         </div>
-    </body>
+        <div th:insert="fragments/footer :: footer"></div>
+    </div>
+</body>
+
 </html>

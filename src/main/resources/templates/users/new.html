@@ -1,53 +1,52 @@
 <!DOCTYPE html>
-<html lang="en"
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org"
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <head th:insert="fragments/header :: header (title='Add new User')"></head>
+
 <body>
-    <div th:insert="fragments/header :: navBar"></div>
-    <div class="container">
-        <h1>NEW USER WILL BE ADDDED HERE</h1>
-        <form action="#" th:action="@{/user/add}" th:object="${user}" method="post">
-            <!-- <p>First Name <input type="text" th:field="*{firstName}"></p>
-            <p>Last Name <input type="text" th:field="*{lastName}"></p>
-            <p>Birth Day <input type="date" th:field="*{birthDate}"></p>
-            <p><input type="submit" value="Submit"></p> -->
-
-            <div class="row">
-                <div class="col">
-                    <input type="text" th:field="*{firstName}" class="form-control" placeholder="First name">
-                </div>
-                <div class="col">
-                    <input type="text" th:field="*{lastName}" class="form-control" placeholder="Last name">
-                </div>
+    <div class="page-container">
+        <div th:insert="fragments/header :: navBar"></div>
+        <div class="page-content">
+            <div class="container">
+                <h1>NEW USER WILL BE ADDDED HERE</h1>
+                <form action="#" th:action="@{/users/add}" th:object="${user}" method="post">
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" th:field="*{firstName}" class="form-control" placeholder="First name">
+                        </div>
+                        <div class="col">
+                            <input type="text" th:field="*{lastName}" class="form-control" placeholder="Last name">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="password" th:field="*{password}" class="form-control" placeholder="password">
+                            <input type="date" th:field="*{birthDate}" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-check" th:each=" role: ${roles}">
+                            <input class="form-check-input" type="checkbox" th:value="${role.id}" id="flexCheckDefault"
+                                th:field="*{roles}">
+                            <label class="form-check-label" for="flexCheckDefault" th:text="${role.role}">
+                                ROLE
+                            </label>
+                        </div>
+                    </div>
+                    <select class="form-select" th:field="*{manager}">
+                        <option value="">--</option>
+                        <option th:each="manager : ${managers}" th:value="${manager.userId}"
+                            th:text="${manager.firstName + ' ' + manager.lastName}"></option>
+                    </select>
+                    <input type="submit" value="Submit" class="btn btn-primary">
+                </form>
             </div>
-            <div class="row">
-                <div class="col-6">
-                    <input type="password" th:field="*{password}" class="form-control" placeholder="password">
-                    <input type="date" th:field="*{birthDate}" class="form-control">
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-check" th:each=" role: ${roles}">
-                    <input class="form-check-input" type="checkbox" th:value="${role.id}" id="flexCheckDefault" th:field="*{roles}">
-                    <label class="form-check-label" for="flexCheckDefault" th:text="${role.role}">
-                        ROLE
-                    </label>
-                </div>
-            </div>
-            <select class="form-select" th:field="*{manager}">
-                <option value="">--</option>
-                <option th:each="manager : ${managers}"
-                        th:value="${manager.userId}"
-                        th:text="${manager.firstName + ' ' + manager.lastName}"></option>
-            </select>
-            <input type="submit" value="Submit" class="btn btn-primary">
-        </form>
-
+        </div>
         <div th:insert="fragments/footer :: footer"></div>
     </div>
 
 </body>
+
 </html>

@@ -3,14 +3,9 @@ package eu.adamzrc.ticketSystemHTML.models;
 import javax.persistence.*;
 import java.sql.Date;
 
-/**
- * Created by Adam Zrcek on 23.03.2021
- */
 @Entity
 public class Ticket {
-    // == constants ==
 
-    // == fields ==
     @Id
     @GeneratedValue
     private Long id;
@@ -40,10 +35,6 @@ public class Ticket {
     @ManyToOne
     @JoinColumn(name = "projectId")
     private Project project;
-
-    // == constructors ==
-
-    // == public methods ==
 
     public Long getId() {
         return id;
@@ -124,6 +115,4 @@ public class Ticket {
     public void setProject(Project project) {
         this.project = project;
     }
-
-    // == private methods ==
 }

@@ -17,95 +17,53 @@
 
 <body>
     <div class="page-container">
-        <div th:insert="fragments/header :: navBar">
-            <nav class="navbar navbar-expand-lg navbar-dark">
-                <div class="navbar-collapse collapse order-2 dual-collapse2 order-lg-first w-100">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a th:href="@{/user}" class="nav-link">Users</a>
-                        </li>
-                        <li class="nav-item">
-                            <a th:href="@{/tickets}" class="nav-link">Tickets</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="mx-auto order-1">
-                    <a class="navbar-brand mx-auto" th:href="@{/}">TICKET SYSTEM</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target=".dual-collapse2">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                </div>
-                <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-                    <ul class="navbar-nav ms-auto">
-                        <!-- <li class="nav-item">
-                            <p class=" navbar-text">Dnes má svátek <span th:text="${svatek}">svatek</span></p>
-                        </li> -->
-                        <div sec:authorize="!isAuthenticated()">
-                            <li class="nav-item">
-                                <a class="nav-link" th:href="@{/login}">LOGIN</a>
-                            </li>
-                        </div>
-                        <div sec:authorize="isAuthenticated()">
-                            <li class="nav-item">
-                                <a class="nav-link" th:href="@{/myProfile}">MY PROFILE</a>
-                            </li>
-                        </div>
-                        <div sec:authorize="isAuthenticated()">
-                            <li class="nav-item">
-                                <a class="nav-link" th:href="@{/logout}">logout</a>
-                            </li>
-                        </div>
-                    </ul>
-                </div>
-            </nav>
-        </div>
+        <div th:insert="fragments/header :: navBar  (userSigned = ${userSigned})"></div>
         <div class="page-content">
             <div class="container mt-5">
                 <div class="row align-content-start align-content-lg-center homepage-row homepage-banner">
                     <div class="col">
                         <div class="top-50 start-50">
-                            <h2 class="fw-bold text-white text-center">WELCOME TO TICKET SYSTEM</h2>
+                            <h1 class="fw-bold text-white text-center">WELCOME TO TICKET SYSTEM</h1>
                         </div>
 
                     </div>
                 </div>
                 <div class="row my-4 homepage-row">
-                    <div class="col-12 mb-md-0 mb-5">
+                    <div class="col-12 mb-md-0 mb-5 pt-3">
                         <h2 class="fw-bold text-white text-center">USED TECHNOLOGIES</h2>
                     </div>
-                    <div class="col=12 col-lg-6 my-5">
+                    <div class="col-12 col-lg-6 my-5 tech-img">
                         <img src="\static\images\tech-logos\spring-logo.png"
-                            th:src="@{\images\tech-logos\spring-logo.png}" alt="spring" height="113px" width="261px"
+                            th:src="@{\images\tech-logos\spring-logo.png}" alt="spring"
                             class="img-responsive center-block d-block mx-auto">
                     </div>
-                    <div class="col=12 col-lg-6 my-5">
+                    <div class="col-12 col-lg-6 my-5 tech-img">
                         <img src="\static\images\tech-logos\thymeleaf-logo.png"
-                            th:src="@{\images\tech-logos\thymeleaf-logo.png}" alt="thymeleaf" height="142px"
-                            width="142px" class="img-responsive center-block d-block mx-auto">
-                    </div>
-                    <div class="col=12 col-lg-6 my-5">
-                        <img src="\static\images\tech-logos\Sass-logo.png" th:src="@{\images\tech-logos\Sass-logo.png}"
-                            alt="Sass" height="158px" width="212px" class="img-responsive center-block d-block mx-auto">
-                    </div>
-                    <div class="col=12 col-lg-6 my-5">
-                        <img src="\static\images\tech-logos\html5-logo.png"
-                            th:src="@{\images\tech-logos\html5-logo.png}" alt="html5" height="198px" width="198px"
+                            th:src="@{\images\tech-logos\thymeleaf-logo.png}" alt="thymeleaf"
                             class="img-responsive center-block d-block mx-auto">
                     </div>
-                    <div class="col=12 col-lg-6 my-5">
+                    <div class="col-12 col-lg-6 my-5 tech-img">
+                        <img src="\static\images\tech-logos\Sass-logo.png" th:src="@{\images\tech-logos\Sass-logo.png}"
+                            alt="Sass" class="img-responsive center-block d-block mx-auto">
+                    </div>
+                    <div class="col-12 col-lg-6 my-5 tech-img">
+                        <img src="\static\images\tech-logos\html5-logo.png"
+                            th:src="@{\images\tech-logos\html5-logo.png}" alt="html5"
+                            class="img-responsive center-block d-block mx-auto">
+                    </div>
+                    <div class="col-12 col-lg-6 my-5 tech-img">
                         <img src="\static\images\tech-logos\javascript-logo.png"
-                            th:src="@{\images\tech-logos\javascript-logo.png}" alt="javascript" height="179px"
-                            width="179px" class="img-responsive center-block d-block mx-auto">
+                            th:src="@{\images\tech-logos\javascript-logo.png}" alt="javascript"
+                            class="img-responsive center-block d-block mx-auto">
                     </div>
-                    <div class="col=12 col-lg-6 my-5">
+                    <div class="col-12 col-lg-6 my-5 tech-img">
                         <img src="\static\images\tech-logos\bootstrap-logo.png"
-                            th:src="@{\images\tech-logos\bootstrap-logo.png}" alt="bootstrap" height="222px"
-                            width="222px" class="img-responsive center-block d-block mx-auto">
+                            th:src="@{\images\tech-logos\bootstrap-logo.png}" alt="bootstrap"
+                            class="img-responsive center-block d-block mx-auto">
                     </div>
-                    <div class="col=12">
+                    <div class="col-12 tech-img">
                         <img src="\static\images\tech-logos\MySQL-Logo.wine.png"
-                            th:src="@{\images\tech-logos\MySQL-Logo.wine.png}" alt="MySQL" height="236px" width="353px"
+                            th:src="@{\images\tech-logos\MySQL-Logo.wine.png}" alt="MySQL"
                             class="img-responsive center-block d-block mx-auto">
                     </div>
                 </div>
