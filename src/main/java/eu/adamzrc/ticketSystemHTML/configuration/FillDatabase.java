@@ -20,8 +20,12 @@ public class FillDatabase {
 
     private final String PASSWORD = "password";
     Faker faker = new Faker();
-    @Autowired
+    final
     RoleService roleService;
+
+    public FillDatabase(RoleService roleService) {
+        this.roleService = roleService;
+    }
 
     @Bean
     CommandLineRunner addUsersToDatabaseIfThereAreLessThan100Users(UserService userService){

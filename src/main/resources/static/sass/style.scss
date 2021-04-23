@@ -9,7 +9,7 @@ $font-main: "Roboto", sans-serif;
 @mixin h1h2Style {
   height: $h2-height;
 
-  font-family: Play;
+  font-family: Play, serif;
   font-style: normal;
   font-weight: bold;
   font-size: 4rem;
